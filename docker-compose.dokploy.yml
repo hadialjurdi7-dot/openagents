@@ -16,6 +16,19 @@ services:
       timeout: 5s
       retries: 10
 
+  migrate:
+    build:
+      context: ./workspace/backend
+      dockerfile: backend.Dockerfile
+    restart: "no"
+    command: ["sh", "-c", "alembic upgrade head"]
+    environment:
+      DATABASE_URL: postgresql://openagents:${DB_PASSWORD}@db:5432/openagents
+      PYTHONPATH: /app
+    depends_on:
+      db:
+        condition: service_healthy
+
   backend:
     build:
       context: ./workspace/backend
@@ -34,6 +47,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
 
   frontend:
     build:
