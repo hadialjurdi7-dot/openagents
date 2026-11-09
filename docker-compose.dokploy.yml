@@ -21,7 +21,8 @@ services:
       context: ./workspace/backend
       dockerfile: backend.Dockerfile
     restart: "no"
-    command: ["sh", "-c", "alembic upgrade head"]
+    entrypoint: ["sh", "-c", "alembic upgrade head"]
+    command: []
     environment:
       DATABASE_URL: postgresql://openagents:${DB_PASSWORD}@db:5432/openagents
       PYTHONPATH: /app
