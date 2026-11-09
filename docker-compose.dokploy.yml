@@ -57,8 +57,6 @@ services:
       dockerfile: Dockerfile
       args:
         NEXT_PUBLIC_API_URL: ${PUBLIC_URL}
-        NEXT_PUBLIC_FIRST_PARTY_HOSTNAMES: ${HOSTNAME_ONLY}
-        NEXT_PUBLIC_INLINE_LOGIN: "true"
     restart: unless-stopped
     depends_on:
       - backend
